@@ -1,0 +1,10 @@
+pip install selenium
+pip install beautifulsoup4
+pip install requests 
+
+
+Ideally, use chrome when running. If you have a different version of chrome see:
+Go to: https://chromedriver.chromium.org/downloads and download correct v. of chromedriver.
+
+If different browser, see:
+https://selenium-python.readthedocs.io/installation.html
