@@ -241,9 +241,10 @@ def sorts(combine_seq_G):
     combine_seq_G.sort(key = lambda x: x[1]) 
     return combine_seq_G 
 
+sorts(combine_seq_G)
+
 for num in range(10):
     final_guess.append(combine_seq_G[num])
-final_guess = sorted(final_guess)
         
         
 ### Write final output of the 10 most thermodyamically favorable sequences to work with those
