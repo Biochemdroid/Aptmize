@@ -243,7 +243,7 @@ def sorts(combine_seq_G):
 
 for num in range(10):
     final_guess.append(combine_seq_G[num])
-final_guess
+final_guess = sorted(final_guess)
         
         
 ### Write final output of the 10 most thermodyamically favorable sequences to work with those
