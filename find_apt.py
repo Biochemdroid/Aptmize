@@ -43,7 +43,7 @@ pd.set_option('display.max_colwidth',1)
 warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
 
-aptamerset = pd.read_excel('Aptamer_Confid.xlsx', sheet_name=0)
+aptamerset = pd.read_excel('aptamer_examples.xlsx', sheet_name=0)
 
 aptamerset = aptamerset[['Unnamed: 1','Unnamed: 2']]
 aptamerset.rename(columns = {'Unnamed: 1':'apt_num', 'Unnamed: 2':'sequence'}, inplace = True)
@@ -64,35 +64,17 @@ for line in seq:
 
         if line[base_pair] != 'A' and line[base_pair] != 'G' and line[base_pair] != 'C' and line[base_pair] != 'T':
 
-            #Y could by any pyrimidine:
-            if line[base_pair] == 'Y':
-                _list = []
-                for possibility in list(set(apt_number)):
-    #                 print(possibility)
-                    _list.append(possibility[0:base_pair] + 'C' + possibility[base_pair + 1:])
-                    _list.append(possibility[0:base_pair] + 'T' + possibility[base_pair + 1:])
+        
 
-    #             print(_list)
-                for apt in _list:
-                    apt_number.append(apt)
-
-            #W could by any A or T:
-            elif line[base_pair] == 'W':
-                _list = []
-                for possibility in apt_number:
-
-                    _list.append(possibility[0:base_pair] + 'A' + possibility[base_pair + 1:])
-                    _list.append(possibility[0:base_pair] + 'T' + possibility[base_pair + 1:])
-                for apt in _list:
-                    apt_number.append(apt)
-
-            #X could by any Purine:
-            elif line[base_pair] == 'X':
+            #X could be any base pair
+            if line[base_pair] == 'X':
                 _list = []
                 for possibility in apt_number:
 
                     _list.append(possibility[0:base_pair] + 'A' + possibility[base_pair + 1:])
                     _list.append(possibility[0:base_pair] + 'G' + possibility[base_pair + 1:])
+                    _list.append(possibility[0:base_pair] + 'T' + possibility[base_pair + 1:])
+                    _list.append(possibility[0:base_pair] + 'C' + possibility[base_pair + 1:])
                 for apt in _list:
                         apt_number.append(apt)
             else:
@@ -105,8 +87,7 @@ for line in seq:
             bp_remove.append(apt_number[nuc])
         elif 'Y' in apt_number[nuc]:
             bp_remove.append(apt_number[nuc])
-        elif 'W' in apt_number[nuc]:
-            bp_remove.append(apt_number[nuc])
+       
         else:
             pass        
 
@@ -139,12 +120,6 @@ with open('possible_apt.txt', 'w') as possibility:
 
 delta_g_apt = {}
 
-#  (Comment unless inital testing!!!)
-# aptamers = {'Sequence_1': [
-#   'TTTTTTTGCCCACGCGACCGTGCTAGACACAGACCGCCAATGTGGGCCCATG',
-#   'TTTTTTTGCCCACGCGACCGTGCTAGGCACAGACCGCCAATGTGGGCCCATG'], 'Sequence_2': ['TTTTTTTGCCCACAACAGTCCGCAGGCCGAACGCCGGGCAAGTGGGCCCATG',
-#   'TTTTTTTGCCCACAACAGTCCGCAGGCCGAACGTCGGGCAAGTGGGCCCATG'], 'Sequence_3': ['TTTTTTTGCACACAACAGTCCGCAAACCGAACGCCGGGCAAGTGGGCCCATG',
-#   'TTTTTTTGCCCACAACAGTCCGCAGGCCGAACGTCGGGCAAGTGGGCGGGGG']}
 
 from selenium import webdriver
 
@@ -272,7 +247,7 @@ final_guess
         
         
 ### Write final output of the 10 most thermodyamically favorable sequences to work with those
-with open('final_output_apt.txt', 'w') as final:
+with open('final_optimized_apt.txt', 'w') as final:
     for a in final_guess:
         final.write(str(a) + '\n')
 
